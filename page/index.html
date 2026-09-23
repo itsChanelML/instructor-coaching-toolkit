@@ -1,0 +1,338 @@
+<title>Instructor Coaching Toolkit</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
+  :root {
+    --bg:          #F5F2EA;
+    --surface:     #FFFFFF;
+    --surface-2:   #ECE6D8;
+    --text:        #1C1E22;
+    --text-dim:    #5B6472;
+    --border:      #DCD3BE;
+    --accent:      #0E8C7F;
+    --accent-soft: #D8EFE9;
+    --not-yet:     #C23B4B;
+    --developing:  #B5790A;
+    --solid:       #0E8C7F;
+    --exemplary:   #1F9D55;
+    --shadow: 0 1px 2px rgba(28,30,34,.06), 0 8px 24px rgba(28,30,34,.06);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg:          #11151C;
+      --surface:     #1B212B;
+      --surface-2:   #222939;
+      --text:        #EDEAE3;
+      --text-dim:    #8B93A1;
+      --border:      #2B3342;
+      --accent:      #56E0C9;
+      --accent-soft: #123B37;
+      --not-yet:     #FB7185;
+      --developing:  #FBBF6B;
+      --solid:       #56E0C9;
+      --exemplary:   #6EE7A8;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px rgba(0,0,0,.35);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg:          #11151C;
+    --surface:     #1B212B;
+    --surface-2:   #222939;
+    --text:        #EDEAE3;
+    --text-dim:    #8B93A1;
+    --border:      #2B3342;
+    --accent:      #56E0C9;
+    --accent-soft: #123B37;
+    --not-yet:     #FB7185;
+    --developing:  #FBBF6B;
+    --solid:       #56E0C9;
+    --exemplary:   #6EE7A8;
+    --shadow: 0 1px 2px rgba(0,0,0,.3), 0 12px 32px rgba(0,0,0,.35);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "IBM Plex Sans", ui-sans-serif, system-ui, sans-serif;
+    padding: 0 20px;
+    padding-block: clamp(28px, 6vw, 64px);
+  }
+  .mono { font-family: "IBM Plex Mono", ui-monospace, monospace; }
+  h1, h2, h3 { text-wrap: balance; margin: 0; }
+  main { max-width: 880px; margin: 0 auto; display: flex; flex-direction: column; gap: 64px; }
+
+  /* ── Header ────────────────────────────────────────────────────────────── */
+  header { display: flex; flex-direction: column; gap: 14px; }
+  .kicker {
+    font-size: 12px; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--accent); font-weight: 600;
+  }
+  h1 { font-size: clamp(30px, 4.4vw, 46px); font-weight: 700; line-height: 1.08; letter-spacing: -.01em; }
+  .lede { font-size: clamp(15px, 1.8vw, 18px); color: var(--text-dim); line-height: 1.55; max-width: 62ch; }
+  .repo-links { display: flex; gap: 10px; flex-wrap: wrap; }
+  .repo-links a {
+    font-family: "IBM Plex Mono", monospace; font-size: 13px;
+    color: var(--text); text-decoration: none;
+    border: 1px solid var(--border); border-radius: 999px;
+    padding: 6px 14px; background: var(--surface);
+  }
+  .repo-links a:hover { border-color: var(--accent); color: var(--accent); }
+
+  section { display: flex; flex-direction: column; gap: 18px; }
+  .section-head { display: flex; flex-direction: column; gap: 6px; }
+  h2 { font-size: clamp(22px, 2.6vw, 28px); font-weight: 700; }
+  .section-note { color: var(--text-dim); font-size: 15px; line-height: 1.55; max-width: 68ch; }
+
+  /* ── Scale legend ──────────────────────────────────────────────────────── */
+  .legend { display: flex; gap: 10px; flex-wrap: wrap; }
+  .legend-item {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 13px; font-family: "IBM Plex Mono", monospace;
+    border: 1px solid var(--border); border-radius: 8px;
+    padding: 6px 12px; background: var(--surface);
+  }
+  .swatch { width: 10px; height: 10px; border-radius: 3px; }
+
+  /* ── Rubric grid ───────────────────────────────────────────────────────── */
+  .rubric-item {
+    display: grid; grid-template-columns: 28px 1fr;
+    gap: 12px; padding: 16px 18px;
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; box-shadow: var(--shadow);
+  }
+  .rubric-num { font-family: "IBM Plex Mono", monospace; color: var(--accent); font-weight: 600; }
+  .rubric-item h3 { font-size: 16px; margin-bottom: 4px; }
+  .rubric-item p { margin: 0; color: var(--text-dim); font-size: 14px; line-height: 1.55; }
+
+  /* ── Feedback cards ────────────────────────────────────────────────────── */
+  .sbi-card {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px 20px; box-shadow: var(--shadow);
+  }
+  .sbi-card .tag {
+    font-family: "IBM Plex Mono", monospace; font-size: 11px; font-weight: 600;
+    letter-spacing: .06em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 10px; display: block;
+  }
+  .sbi-row { display: grid; grid-template-columns: 100px 1fr; gap: 10px; font-size: 14px; padding: 7px 0; border-top: 1px solid var(--border); }
+  .sbi-row:first-of-type { border-top: none; }
+  .sbi-row .k { font-family: "IBM Plex Mono", monospace; color: var(--text-dim); font-size: 12px; padding-top: 2px; }
+
+  /* ── Pipeline stepper ──────────────────────────────────────────────────── */
+  .pipeline { display: flex; flex-direction: column; gap: 0; }
+  .stage {
+    display: grid; grid-template-columns: 40px 1fr; gap: 14px;
+    padding: 16px 0; border-top: 1px solid var(--border);
+  }
+  .pipeline .stage:first-child { border-top: none; }
+  .stage-num {
+    font-family: "IBM Plex Mono", monospace; font-weight: 600; color: var(--accent);
+    font-size: 15px;
+  }
+  .stage h3 { font-size: 16px; margin-bottom: 4px; }
+  .stage p { margin: 0 0 6px; color: var(--text-dim); font-size: 14px; line-height: 1.55; }
+  .exit { font-size: 13px; }
+  .exit .k { font-family: "IBM Plex Mono", monospace; color: var(--accent); font-size: 11px; letter-spacing: .04em; text-transform: uppercase; margin-right: 6px; }
+
+  /* ── Worked example ────────────────────────────────────────────────────── */
+  .scorecard {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 12px; padding: 20px 22px; box-shadow: var(--shadow);
+    display: flex; flex-direction: column; gap: 12px;
+  }
+  .score-row { display: grid; grid-template-columns: 1fr 130px 100px; align-items: center; gap: 12px; }
+  .score-row .name { font-size: 14px; }
+  .meter { display: flex; gap: 3px; }
+  .meter i { width: 22px; height: 8px; border-radius: 3px; background: var(--surface-2); display: block; }
+  .meter i.on { background: var(--fill); }
+  .score-label { font-family: "IBM Plex Mono", monospace; font-size: 12px; text-align: right; }
+
+  .verdict {
+    border-radius: 12px; padding: 16px 20px;
+    background: var(--accent-soft); border: 1px solid var(--accent);
+    font-size: 14px; line-height: 1.55;
+  }
+  .verdict b { color: var(--accent); }
+
+  a.link { color: var(--accent); }
+
+  footer { border-top: 1px solid var(--border); padding-top: 24px; font-size: 13px; color: var(--text-dim); display: flex; flex-direction: column; gap: 6px; }
+  footer a { color: var(--text-dim); }
+
+  @media (max-width: 560px) {
+    .rubric-item, .stage { grid-template-columns: 24px 1fr; }
+    .score-row { grid-template-columns: 1fr; gap: 6px; }
+    .score-row .score-label { text-align: left; }
+  }
+</style>
+
+<main>
+
+  <header>
+    <div class="kicker">Instructor Coaching Toolkit</div>
+    <h1>An observation rubric, a feedback template,<br>and a train-the-trainer pipeline.</h1>
+    <div class="lede">For coaching technical instructors — not delivering technical
+    content yourself. Applied, at the bottom of this page, to a real session
+    from a sibling project.</div>
+    <div class="repo-links mono">
+      <a href="https://github.com/itsChanelML/instructor-coaching-toolkit" target="_blank" rel="noopener">github/instructor-coaching-toolkit</a>
+      <a href="https://github.com/itsChanelML/engineer-agent-adoption-workshop" target="_blank" rel="noopener">github/engineer-agent-adoption-workshop</a>
+      <a href="https://github.com/itsChanelML/airclaude" target="_blank" rel="noopener">github/airclaude</a>
+    </div>
+  </header>
+
+  <!-- ── Rubric ────────────────────────────────────────────────────────── -->
+  <section>
+    <div class="section-head">
+      <h2>The rubric</h2>
+      <div class="section-note">Eight dimensions, scored independently — never
+      averaged into one number. A single "Not yet" on accuracy or accessibility
+      is disqualifying regardless of how strong everything else is.</div>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item"><span class="swatch" style="background:var(--not-yet)"></span>Not yet</div>
+      <div class="legend-item"><span class="swatch" style="background:var(--developing)"></span>Developing</div>
+      <div class="legend-item"><span class="swatch" style="background:var(--solid)"></span>Solid — certification bar</div>
+      <div class="legend-item"><span class="swatch" style="background:var(--exemplary)"></span>Exemplary</div>
+    </div>
+
+    <div style="display:flex; flex-direction:column; gap:10px;">
+      <div class="rubric-item"><div class="rubric-num mono">01</div><div><h3>Technical accuracy</h3><p>Correct, current, and honest about the edges of what's known — "I don't know, let me check" said without losing authority.</p></div></div>
+      <div class="rubric-item"><div class="rubric-num mono">02</div><div><h3>Pacing &amp; time management</h3><p>Protects load-bearing sections' time budget even when something upstream ran long, and notices mid-session when the room is behind.</p></div></div>
+      <div class="rubric-item"><div class="rubric-num mono">03</div><div><h3>Clarity of explanation</h3><p>Builds from what the room already knows, in the room's vocabulary — not the instructor's internal mental model.</p></div></div>
+      <div class="rubric-item"><div class="rubric-num mono">04</div><div><h3>Checking for understanding</h3><p>Real checks — a wrong-answer-shaped question, a poll — not "does that make sense?", which almost nobody answers honestly.</p></div></div>
+      <div class="rubric-item"><div class="rubric-num mono">05</div><div><h3>Hands-on lab facilitation</h3><p>Walks the room rather than waiting for raised hands; tells "stuck on a typo" apart from "stuck on the concept" quickly.</p></div></div>
+      <div class="rubric-item"><div class="rubric-num mono">06</div><div><h3>Handling questions</h3><p>Answers the question asked. Redirects a rabbit-hole without making the asker feel shut down.</p></div></div>
+      <div class="rubric-item"><div class="rubric-num mono">07</div><div><h3>Engagement &amp; energy</h3><p>Genuine presence, not performed enthusiasm — and responds to a flagging room instead of pushing through the plan.</p></div></div>
+      <div class="rubric-item"><div class="rubric-num mono">08</div><div><h3>Inclusivity &amp; accessibility</h3><p>Never leaves people silently behind on assumed context, and never makes a struggling learner an example.</p></div></div>
+    </div>
+  </section>
+
+  <!-- ── Feedback template ─────────────────────────────────────────────── -->
+  <section>
+    <div class="section-head">
+      <h2>Feedback: Situation → Behavior → Impact → Suggestion</h2>
+      <div class="section-note">Every piece of feedback uses this shape — praise
+      included. "Great job today" is applause, not feedback; it doesn't say
+      what to repeat.</div>
+    </div>
+
+    <div class="sbi-card">
+      <span class="tag">Strength, written so it's repeatable</span>
+      <div class="sbi-row"><div class="k">SITUATION</div><div>Step 2, right after the first person hit the "loop never terminates" bug.</div></div>
+      <div class="sbi-row"><div class="k">BEHAVIOR</div><div>Asked "what does <code>len(messages)</code> do at the top of your loop?" instead of debugging it themselves.</div></div>
+      <div class="sbi-row"><div class="k">IMPACT</div><div>The participant fixed it in under a minute, and three nearby people used the same diagnostic on their own code, unprompted.</div></div>
+      <div class="sbi-row"><div class="k">SUGGESTION</div><div>Ask that question to the whole room proactively at the start of Step 2 next time — it prevents the bug as often as it fixes it.</div></div>
+    </div>
+
+    <div class="sbi-card">
+      <span class="tag">Gap, written as one fixable thing</span>
+      <div class="sbi-row"><div class="k">SITUATION</div><div>Step 4, introducing RETRY vs. ESCALATE.</div></div>
+      <div class="sbi-row"><div class="k">BEHAVIOR</div><div>Showed both branches of code back-to-back before asking which applies to a hallucinated tool name vs. a renamed column.</div></div>
+      <div class="sbi-row"><div class="k">IMPACT</div><div>About a third of the room could recite both branches but couldn't say, unprompted, which failure mode each is for.</div></div>
+      <div class="sbi-row"><div class="k">SUGGESTION</div><div>Ask "whose fault is this — the model's or the data's?" before showing either branch. Land the concept, then show code as the answer.</div></div>
+    </div>
+  </section>
+
+  <!-- ── Pipeline ──────────────────────────────────────────────────────── -->
+  <section>
+    <div class="section-head">
+      <h2>Train-the-trainer pipeline</h2>
+      <div class="section-note">Nobody advances on a calendar date — only on the rubric.</div>
+    </div>
+    <div class="pipeline">
+      <div class="stage">
+        <div class="stage-num mono">01</div>
+        <div>
+          <h3>Shadow</h3>
+          <p>Observes a certified instructor teach the full session, using the rubric themselves — first exposure to the material live, and low-stakes practice with its vocabulary.</p>
+          <div class="exit"><span class="k">Exit</span>Can describe a specific moment in SBI shape, unprompted.</div>
+        </div>
+      </div>
+      <div class="stage">
+        <div class="stage-num mono">02</div>
+        <div>
+          <h3>Co-teach</h3>
+          <p>Delivers one or two modules solo while the certified instructor runs the rest and floats during the candidate's modules.</p>
+          <div class="exit"><span class="k">Exit</span>Solid on clarity, checking understanding, and engagement for their modules.</div>
+        </div>
+      </div>
+      <div class="stage">
+        <div class="stage-num mono">03</div>
+        <div>
+          <h3>Solo teach, observed</h3>
+          <p>Runs the entire session. The observer stays silent — no floating, no rescuing — and scores the full rubric.</p>
+          <div class="exit"><span class="k">Exit</span>Solid or better on all eight dimensions, across at least two sessions.</div>
+        </div>
+      </div>
+      <div class="stage">
+        <div class="stage-num mono">04</div>
+        <div>
+          <h3>Ongoing calibration</h3>
+          <p>Quarterly re-observation, plus coaches independently scoring the same recorded session before comparing notes — keeps "Solid" meaning the same thing as more coaches join.</p>
+          <div class="exit"><span class="k">Exit</span>N/A — recurring, not a one-time gate.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Worked example ────────────────────────────────────────────────── -->
+  <section>
+    <div class="section-head">
+      <h2>Worked example — Stage 3 observation</h2>
+      <div class="section-note">A constructed example: candidate <b>Jordan Lee</b>,
+      delivering <a class="link" href="https://github.com/itsChanelML/engineer-agent-adoption-workshop" target="_blank" rel="noopener">engineer-agent-adoption-workshop</a>
+      solo for the first time, scored against the actual rubric above.</div>
+    </div>
+
+    <div class="scorecard" id="scorecard"></div>
+
+    <div class="verdict">
+      <b>Decision: not yet certified.</b> Six of eight dimensions at Solid or
+      better — but Pacing and Lab Facilitation share one root cause: three
+      participants hit Step 2's known "loop looks stuck" bug within two
+      minutes of each other, and each was diagnosed from scratch at their
+      desk instead of addressed to the room once. That cost 8 of Step 2's
+      20-minute budget and meant two other affected participants were never
+      seen. One more Stage 3 session, focused only on that, is the entire
+      next step — the other six dimensions don't need re-proving.
+    </div>
+  </section>
+
+  <footer>
+    <div>Part of a portfolio built alongside
+      <a href="https://github.com/itsChanelML/airclaude" target="_blank" rel="noopener">AirClaude</a> and
+      <a href="https://github.com/itsChanelML/engineer-agent-adoption-workshop" target="_blank" rel="noopener">engineer-agent-adoption-workshop</a>.
+    </div>
+    <div>Chanel Power · <a href="https://mentormecollective.org" target="_blank" rel="noopener">Mentor Me Collective</a> · <a href="https://github.com/itsChanelML" target="_blank" rel="noopener">@itsChanelML</a></div>
+  </footer>
+
+</main>
+
+<script>
+  const SCORES = [
+    ["Technical accuracy",          3, "Solid"],
+    ["Pacing & time management",    2, "Developing"],
+    ["Clarity of explanation",      3, "Solid"],
+    ["Checking for understanding",  3, "Solid"],
+    ["Hands-on lab facilitation",   2, "Developing"],
+    ["Handling questions",          4, "Exemplary"],
+    ["Engagement & energy",         3, "Solid"],
+    ["Inclusivity & accessibility", 3, "Solid"],
+  ];
+  const COLORS = { 1: "var(--not-yet)", 2: "var(--developing)", 3: "var(--solid)", 4: "var(--exemplary)" };
+
+  const card = document.getElementById('scorecard');
+  SCORES.forEach(([name, level, label]) => {
+    const row = document.createElement('div');
+    row.className = 'score-row';
+    const meter = Array.from({length: 4}, (_, i) =>
+      `<i class="${i < level ? 'on' : ''}" ${i < level ? `style="--fill:${COLORS[level]}"` : ''}></i>`
+    ).join('');
+    row.innerHTML = `<div class="name">${name}</div><div class="meter">${meter}</div><div class="score-label mono" style="color:${COLORS[level]}">${label}</div>`;
+    card.appendChild(row);
+  });
+</script>
